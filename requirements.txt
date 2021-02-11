@@ -52,3 +52,4 @@ validators
 bing_image_downloader
 google-api-python-client
 pornhub_api
+youtube_search
