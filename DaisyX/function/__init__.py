@@ -1,3 +1,74 @@
+
+import random
+import requests
+import string
+import random
+import requests
+import string
+from bs4 import BeautifulSoup
+from hachoir.metadata import extractMetadata
+from hachoir.parser import createParser
+import hachoir
+import asyncio
+import os
+from pathlib import Path
+from selenium import webdriver
+import time
+import requests
+import shutil
+import os
+import argparse
+import wget
+from telethon.tl.types import DocumentAttributeAudio
+from youtube_dl import YoutubeDL
+from youtube_dl.utils import (
+    ContentTooShortError,
+    DownloadError,
+    ExtractorError,
+    GeoRestrictedError,
+    MaxDownloadsReached,
+    PostProcessingError,
+    UnavailableVideoError,
+    XAttrMetadataError,
+)
+import requests
+from bs4 import BeautifulSoup
+from fake_useragent import UserAgent
+headers = {"UserAgent": UserAgent().random}
+import asyncio
+from DaisyX.function.FastTelethon import download_file
+import json
+import math
+import os
+import re
+import shlex
+import subprocess
+import time
+import eyed3
+from os.path import basename
+from typing import List, Optional, Tuple
+import webbrowser
+from bs4 import BeautifulSoup
+import requests
+from bs4 import BeautifulSoup as bs
+import re
+from telethon.tl.types import InputMessagesFilterDocument
+import telethon
+from telethon import Button, custom, events, functions
+from pymediainfo import MediaInfo
+from telethon.tl.types import MessageMediaPhoto
+from typing import Union
+SIZE_UNITS = ["B", "KB", "MB", "GB", "TB", "PB"]
+BASE_URL = "https://isubtitles.org"
+from DaisyX import TMP_DOWNLOAD_DIRECTORY
+import zipfile
+import os
+import aiohttp
+from DaisyX.function.FastTelethon import upload_file
+session = aiohttp.ClientSession()
+
+sedpath = TMP_DOWNLOAD_DIRECTORY
+
 async def convert_to_image(event, borg):
     lmao = await event.get_reply_message()
     if not (
@@ -70,3 +141,156 @@ async def convert_to_image(event, borg):
         lmao_final = jpg_file
     await event.edit("`Almost Completed.`")
     return lmao_final
+
+
+
+
+async def apk_dl(app_name, path, event):
+    await event.edit('`Searching, For Apk File. This May Take Time Depending On Your App Size`')
+    res = requests.get(f"https://m.apkpure.com/search?q={app_name}")
+    soup = BeautifulSoup(res.text, 'html.parser')
+    result = soup.select('.dd')
+    for link in result[:1]:
+        s_for_name = requests.get("https://m.apkpure.com" + link.get('href'))
+        sfn = BeautifulSoup(s_for_name.text, 'html.parser')
+        ttl = sfn.select_one('title').text
+        noneed = [' - APK Download']
+        for i in noneed:
+            name = ttl.replace(i, '')
+            res2 = requests.get("https://m.apkpure.com" + link.get('href') + "/download?from=details")
+            soup2 = BeautifulSoup(res2.text, 'html.parser')
+            result = soup2.select('.ga')
+        for link in result:
+            dl_link = link.get('href')
+            r = requests.get(dl_link)
+            with open(f"{path}/{name}@FridayOT.apk", 'wb') as f:
+                f.write(r.content)
+    await event.edit('`Apk, Downloaded. Let me Upload It here.`')
+    final_path = f'{path}/{name}@FridayOT.apk'
+    return final_path, name
+
+
+
+
+async def _ytdl(url, is_it, event, tgbot):
+    await event.edit("`Ok Downloading This Video / Audio - Please Wait.` \n**Powered By @FridayOT**")
+    if is_it:
+        opts = {
+            "format": "bestaudio",
+            "addmetadata": True,
+            "key": "FFmpegMetadata",
+            "writethumbnail": True,
+            "prefer_ffmpeg": True,
+            "geo_bypass": True,
+            "nocheckcertificate": True,
+            "postprocessors": [
+                {
+                    "key": "FFmpegExtractAudio",
+                    "preferredcodec": "mp3",
+                    "preferredquality": "480",
+                }
+            ],
+            "outtmpl": "%(id)s.mp3",
+            "quiet": True,
+            "logtostderr": False,
+        }
+        video = False
+        song = True
+    else:
+        opts = {
+            "format": "best",
+            "addmetadata": True,
+            "key": "FFmpegMetadata",
+            "prefer_ffmpeg": True,
+            "geo_bypass": True,
+            "nocheckcertificate": True,
+            "postprocessors": [
+                {"key": "FFmpegVideoConvertor", "preferedformat": "mp4"}
+            ],
+            "outtmpl": "%(id)s.mp4",
+            "logtostderr": False,
+            "quiet": True,
+        }
+        song = False
+        video = True
+    try:
+        with YoutubeDL(opts) as ytdl:
+            ytdl_data = ytdl.extract_info(url)
+    except Exception as e:
+        await event.edit(f"**Failed To Download** \n**Error :** `{str(e)}`")
+        return
+    c_time = time.time()
+    if song:
+        file_stark = f"{ytdl_data['id']}.mp3"
+        lol_m = await upload_file(
+            file_name=f"{ytdl_data['title']}.mp3",
+            client=tgbot,
+            file=open(file_stark, 'rb'),
+            progress_callback=lambda d, t: asyncio.get_event_loop().create_task(
+                progress(
+                    d, t, event, c_time, "Uploading Youtube Audio..", file_stark
+                )
+            ),
+        )
+        await event.edit(
+            file=lol_m,
+            text=f"{ytdl_data['title']} \n**Uploaded Using @FRidayOt**"
+        )
+        os.remove(file_stark)
+    elif video:
+        file_stark = f"{ytdl_data['id']}.mp4"
+        lol_m = await upload_file(
+            file_name=f"{ytdl_data['title']}.mp4",
+            client=tgbot,
+            file=open(file_stark, 'rb'),
+            progress_callback=lambda d, t: asyncio.get_event_loop().create_task(
+                progress(
+                    d, t, event, c_time, "Uploading Youtube Video..", file_stark
+                )
+            ),
+        )
+        await event.edit(
+            file=lol_m,
+            text=f"{ytdl_data['title']} \n**Uploaded Using @FRidayOt**"
+        )
+        os.remove(file_stark)
+
+
+async def _deezer_dl(word, event, tgbot):
+    await event.edit("`Ok Downloading This Audio - Please Wait.` \n**Powered By @FridayOT**")
+    urlp = f"https://starkapi.herokuapp.com/deezer/{word}"
+    datto = requests.get(url=urlp).json()
+    mus = datto.get("url")
+    mello = datto.get("artist")
+    #thums = urlhp["album"]["cover_medium"]
+    sname = f'''{datto.get("title")}.mp3'''
+    doc = requests.get(mus)
+    with open(sname, 'wb') as f:
+      f.write(doc.content)
+    car = f"""
+**Song Name :** {datto.get("title")}
+**Duration :** {datto.get('duration')} Seconds
+**Artist :** {mello}
+Music Downloaded And Uploaded By @DaisyXBot
+Please Share and support @DaisyXBot"""
+    await event.edit("Song Downloaded.  Waiting To Upload. 🥳🤗")
+    c_time = time.time()
+    uploaded_file = await upload_file(
+        	file_name=sname,
+            client=tgbot,
+            file=open(sname, 'rb'),
+            progress_callback=lambda d, t: asyncio.get_event_loop().create_task(
+                progress(
+                    d, t, event, c_time, "Uploading..", sname
+                )
+            ),
+        )
+    
+    await event.edit(
+            file=uploaded_file,
+            text=car
+    )
+    os.remove(sname)
+
+
+
