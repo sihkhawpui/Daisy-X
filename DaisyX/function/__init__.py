@@ -7,6 +7,7 @@ import string
 import time
 from pathlib import Path
 
+from DaisyX import ubot as borg
 import hachoir
 import requests
 import wget
@@ -163,16 +164,16 @@ async def apk_dl(app_name, path, event):
         for link in result:
             dl_link = link.get("href")
             r = requests.get(dl_link)
-            with open(f"{path}/{name}@FridayOT.apk", "wb") as f:
+            with open(f"{path}/{name}@DaisyXBot.apk", "wb") as f:
                 f.write(r.content)
     await event.edit("`Apk, Downloaded. Let me Upload It here.`")
-    final_path = f"{path}/{name}@FridayOT.apk"
+    final_path = f"{path}/{name}@DaisyXBot.apk"
     return final_path, name
 
 
 async def _ytdl(url, is_it, event, tgbot):
     await event.edit(
-        "`Ok Downloading This Video / Audio - Please Wait.` \n**Powered By @FridayOT**"
+        "`Ok Downloading This Video / Audio - Please Wait.` \n**Powered By @DaisyXbot**"
     )
     if is_it:
         opts = {
@@ -252,7 +253,7 @@ async def _ytdl(url, is_it, event, tgbot):
 
 async def _deezer_dl(word, event, tgbot):
     await event.edit(
-        "`Ok Downloading This Audio - Please Wait.` \n**Powered By @FridayOT**"
+        "`Ok Downloading This Audio - Please Wait.` \n**Powered By @DaisyXBot**"
     )
     urlp = f"https://starkapi.herokuapp.com/deezer/{word}"
     datto = requests.get(url=urlp).json()
