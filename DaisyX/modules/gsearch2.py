@@ -2,7 +2,7 @@ from pyrogram import filters
 from pyrogram.types import Message
 from search_engine_parser import GoogleSearch
 from youtube_search import YoutubeSearch
-
+from DaisyX.modules import cust_filters as cust_filter
 from DaisyX import pbot as app
 
 __mod_name__ = "Search"
