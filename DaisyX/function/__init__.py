@@ -68,10 +68,10 @@ session = aiohttp.ClientSession()
 
 sedpath = TMP_DOWNLOAD_DIRECTORY
 
+
 async def fetch_json(link):
     async with session.get(link) as resp:
         return await resp.json()
-    
 
 
 async def progress(current, total, event, start, type_of_ps, file_name=None):
@@ -98,7 +98,6 @@ async def progress(current, total, event, start, type_of_ps, file_name=None):
             try:
                 await event.edit(
                     "{}\n**File Name:** `{}`\n{}".format(type_of_ps, file_name, tmp)
-                    
                 )
             except:
                 pass
@@ -107,7 +106,6 @@ async def progress(current, total, event, start, type_of_ps, file_name=None):
                 await event.edit("{}\n{}".format(type_of_ps, tmp))
             except:
                 pass
-
 
 
 async def convert_to_image(event, borg):

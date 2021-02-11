@@ -1,16 +1,14 @@
-from youtube_search import YoutubeSearch
-from search_engine_parser import GoogleSearch
-from pyrogram.types import Message
 from pyrogram import filters
-from requests import get
+from pyrogram.types import Message
+from search_engine_parser import GoogleSearch
+from youtube_search import YoutubeSearch
+
 from DaisyX import pbot as app
-from DaisyX.modules import cust_filters
 
 __mod_name__ = "Search"
-__help__ = '''/ud - Search For Something In Urban Dictionary
+__help__ = """/ud - Search For Something In Urban Dictionary
 /google - Search For Something On Google
-/yt - Search For Something On YouTube'''
-
+/yt - Search For Something On YouTube"""
 
 
 # google

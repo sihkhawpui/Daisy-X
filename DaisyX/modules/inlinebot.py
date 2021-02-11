@@ -12,37 +12,32 @@
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-import os
 import re
 import urllib
-import json
-from math import ceil
 from re import findall
-import requests
-from youtube_search import YoutubeSearch
-from search_engine_parser import GoogleSearch
-from DaisyX.function import _ytdl, fetch_json, _deezer_dl
 from urllib.parse import quote
+
 import requests
-from telethon import Button, custom, events, functions
-from youtubesearchpython import VideosSearch
 from pornhub_api import PornhubApi
-from telethon.tl.types import BotInlineResult, InputBotInlineMessageMediaAuto, DocumentAttributeImageSize, InputWebDocument, InputBotInlineResult
-from telethon.tl.functions.messages import SetInlineBotResultsRequest
+from search_engine_parser import GoogleSearch
+from telethon import Button, custom, events
+from youtube_search import YoutubeSearch
+
+from DaisyX.function import _deezer_dl, _ytdl
+
 
 @tgbot.on(events.callbackquery.CallbackQuery(data=re.compile(b"deezer_dl_(.*)")))
 async def rip(event):
-    sun = event.data_match.group(1).decode("UTF-8")    
-    ok = await _deezer_dl(sun, event, tgbot)
+    sun = event.data_match.group(1).decode("UTF-8")
+    await _deezer_dl(sun, event, tgbot)
 
 
-    
 @tgbot.on(events.callbackquery.CallbackQuery(data=re.compile(b"yt_vid_(.*)")))
 async def rip(event):
     yt_dl_data = event.data_match.group(1).decode("UTF-8")
     link_s = yt_dl_data
     is_it = False
-    ok = await _ytdl(link_s, is_it, event, tgbot)
+    await _ytdl(link_s, is_it, event, tgbot)
 
 
 @tgbot.on(events.InlineQuery(pattern=r"torrent (.*)"))
@@ -145,7 +140,7 @@ async def inline_id_handler(event: events.InlineQuery.Event):
         stark_chnnl = moon["channel"]
         total_stark = moon["duration"]
         stark_views = moon["views"]
-        lol_desc = moon["long_desc"]
+        moon["long_desc"]
         kekme = f"https://img.youtube.com/vi/{hmm}/hqdefault.jpg"
         okayz = f"**Title :** `{stark_name}` \n**Link :** `{kek}` \n**Channel :** `{stark_chnnl}` \n**Views :** `{stark_views}` \n**Duration :** `{total_stark}`"
         hmmkek = f"Video Name : {stark_name} \nChannel : {stark_chnnl} \nDuration : {total_stark} \nViews : {stark_views}"
@@ -157,18 +152,18 @@ async def inline_id_handler(event: events.InlineQuery.Event):
                 text=okayz,
                 include_media=True,
                 buttons=[
-                [custom.Button.inline("Download Video - mp4", data=f"yt_vid_{mo}")],
-                [custom.Button.inline("Download Audio - mp3", data=f"yt_dla_{mo}")],
-                [Button.switch_inline("Search Again", query="yt ", same_peer=True)],
-                ]
-              )
+                    [custom.Button.inline("Download Video - mp4", data=f"yt_vid_{mo}")],
+                    [custom.Button.inline("Download Audio - mp3", data=f"yt_dla_{mo}")],
+                    [Button.switch_inline("Search Again", query="yt ", same_peer=True)],
+                ],
+            )
         )
     await event.answer(results)
 
 
 @tgbot.on(events.InlineQuery(pattern=r"jm (.*)"))
 async def inline_id_handler(event: events.InlineQuery.Event):
-    builder = event.builder
+    event.builder
     testinput = event.pattern_match.group(1)
     starkisnub = urllib.parse.quote_plus(testinput)
     results = []
@@ -202,11 +197,10 @@ async def inline_id_handler(event: events.InlineQuery.Event):
         )
     await event.answer(results)
 
-    
-        
+
 @tgbot.on(events.InlineQuery(pattern=r"google (.*)"))
 async def inline_id_handler(event: events.InlineQuery.Event):
-    builder = event.builder
+    event.builder
     results = []
     match = event.pattern_match.group(1)
     page = findall(r"page=\d+", match)
@@ -216,11 +210,10 @@ async def inline_id_handler(event: events.InlineQuery.Event):
         match = match.replace("page=" + page[0], "")
     except IndexError:
         page = 1
-    
+
     search_args = (str(match), int(page))
     gsearch = GoogleSearch()
     gresults = await gsearch.async_search(*search_args)
-    msg = ""
     for i in range(len(gresults["links"])):
         try:
             title = gresults["titles"][i]
@@ -242,23 +235,20 @@ async def inline_id_handler(event: events.InlineQuery.Event):
         except IndexError:
             break
     await event.answer(results)
-    
+
+
 @tgbot.on(events.InlineQuery(pattern=r"ph (.*)"))
 async def inline_id_handler(event: events.InlineQuery.Event):
-    builder = event.builder
+    event.builder
     results = []
     input_str = event.pattern_match.group(1)
     api = PornhubApi()
-    data = api.search.search(
-    input_str,
-    ordering="mostviewed"
-    )
+    data = api.search.search(input_str, ordering="mostviewed")
     ok = 1
-    oik = ""
     for vid in data.videos:
-      if ok <= 5:
-        lul_m = (f"**PORN-HUB SEARCH** \n**Video title :** `{vid.title}` \n**Video link :** `https://www.pornhub.com/view_video.php?viewkey={vid.video_id}`")
-        results.append(
+        if ok <= 5:
+            lul_m = f"**PORN-HUB SEARCH** \n**Video title :** `{vid.title}` \n**Video link :** `https://www.pornhub.com/view_video.php?viewkey={vid.video_id}`"
+            results.append(
                 await event.builder.article(
                     title=vid.title,
                     text=lul_m,
@@ -269,14 +259,14 @@ async def inline_id_handler(event: events.InlineQuery.Event):
                     ],
                 )
             )
-      else:
-        pass
+        else:
+            pass
     await event.answer(results)
-    
+
+
 @tgbot.on(events.InlineQuery(pattern=r"xkcd (.*)"))
 async def inline_id_handler(event: events.InlineQuery.Event):
     builder = event.builder
-    results = []
     input_str = event.pattern_match.group(1)
     xkcd_id = None
     if input_str:
@@ -313,40 +303,39 @@ Month: {}
 Year: {}""".format(
             xkcd_link, safe_title, alt, day, month, year
         )
-        lul_k = builder.photo(
-            file=img,
-            text=output_str
-        )
+        lul_k = builder.photo(file=img, text=output_str)
         await event.answer([lul_k])
     else:
-        resultm = builder.article(
-            title="- No Results :/ -",
-            text=f"No Results Found !"
-        )
+        resultm = builder.article(title="- No Results :/ -", text=f"No Results Found !")
         await event.answer([resultm])
-        
+
+
 @tgbot.on(events.InlineQuery(pattern=r"deezer ?(.*)"))
 async def inline_id_handler(event):
-    builder = event.buildernt.answer([resultm])
+    event.buildernt.answer([resultm])
     results = []
     input_str = event.pattern_match.group(1)
     link = f"https://api.deezer.com/search?q={input_str}&limit=7"
     dato = requests.get(url=link).json()
-    #data_s = json.loads(data_s)
+    # data_s = json.loads(data_s)
     for match in dato.get("data"):
-            ro = str(match.get("id"))
-            hmm_m = (f"Title : {match['title']} \nLink : {match['link']} \nDuration : {match['duration']} seconds \nBy : {match['artist']['name']}")
-            results.append(
-                await event.builder.document(
-                    file=match["album"]["cover_big"],
-                    title=match["title"],
-                    text=hmm_m,
-                    description=f"Artist: {match['artist']['name']}\nAlbum: {match['album']['title']}",
-                    buttons=[
-                       [custom.Button.inline("Download Audio - mp3", data=f"deezer_dl_{ro}")],
-                    ]
-                ),
-            )
+        ro = str(match.get("id"))
+        hmm_m = f"Title : {match['title']} \nLink : {match['link']} \nDuration : {match['duration']} seconds \nBy : {match['artist']['name']}"
+        results.append(
+            await event.builder.document(
+                file=match["album"]["cover_big"],
+                title=match["title"],
+                text=hmm_m,
+                description=f"Artist: {match['artist']['name']}\nAlbum: {match['album']['title']}",
+                buttons=[
+                    [
+                        custom.Button.inline(
+                            "Download Audio - mp3", data=f"deezer_dl_{ro}"
+                        )
+                    ],
+                ],
+            ),
+        )
     if results:
         try:
             await event.answer(results)
