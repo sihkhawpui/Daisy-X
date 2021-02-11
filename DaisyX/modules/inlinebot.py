@@ -41,7 +41,6 @@ async def rip(event):
 async def rip(event):
     yt_dl_data = event.data_match.group(1).decode("UTF-8")
     link_s = yt_dl_data
-    if event.query.user_id not in o:
     is_it = False
     ok = await _ytdl(link_s, is_it, event, tgbot)
 
