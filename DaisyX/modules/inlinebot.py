@@ -1,3 +1,35 @@
+#    Copyright (C) Midhun KM 2020-2021
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU Affero General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU Affero General Public License for more details.
+#
+#    You should have received a copy of the GNU Affero General Public License
+#    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+
+import os
+import re
+import urllib
+import json
+from math import ceil
+from re import findall
+import requests
+from youtube_search import YoutubeSearch
+from search_engine_parser import GoogleSearch
+from DaisyX.function import _ytdl, fetch_json, _deezer_dl
+from urllib.parse import quote
+import requests
+from telethon import Button, custom, events, functions
+from youtubesearchpython import VideosSearch
+from pornhub_api import PornhubApi
+from telethon.tl.types import BotInlineResult, InputBotInlineMessageMediaAuto, DocumentAttributeImageSize, InputWebDocument, InputBotInlineResult
+from telethon.tl.functions.messages import SetInlineBotResultsRequest
+
 @tgbot.on(events.callbackquery.CallbackQuery(data=re.compile(b"deezer_dl_(.*)")))
 async def rip(event):
     sun = event.data_match.group(1).decode("UTF-8")    
@@ -17,14 +49,6 @@ async def rip(event):
 @tgbot.on(events.InlineQuery(pattern=r"torrent (.*)"))
 async def inline_id_handler(event: events.InlineQuery.Event):
     builder = event.builder
-    o = await all_pro_s(Config, client1, client2, client3)
-    if event.query.user_id not in o:
-        resultm = builder.article(
-            title="Not Allowded",
-            text=f"You Can't Use This Bot. \nDeploy Friday To Get Your Own Assistant, Repo Link [Here](https://github.com/StarkGang/FridayUserbot)",
-        )
-        await event.answer([resultm])
-        return
     testinput = event.pattern_match.group(1)
     starkisnub = urllib.parse.quote_plus(testinput)
     results = []
@@ -98,15 +122,7 @@ async def inline_id_handler(event: events.InlineQuery.Event):
 
 @tgbot.on(events.InlineQuery(pattern=r"yt (.*)"))
 async def inline_id_handler(event: events.InlineQuery.Event):
-    o = await all_pro_s(Config, client1, client2, client3)
     builder = event.builder
-    if event.query.user_id not in o:
-        resultm = builder.article(
-            title="Not Allowded",
-            text=f"You Can't Use This Bot. \nDeploy Friday To Get Your Own Assistant, Repo Link [Here](https://github.com/StarkGang/FridayUserbot)",
-        )
-        await event.answer([resultm])
-        return
     testinput = event.pattern_match.group(1)
     urllib.parse.quote_plus(testinput)
     results = []
@@ -153,15 +169,7 @@ async def inline_id_handler(event: events.InlineQuery.Event):
 
 @tgbot.on(events.InlineQuery(pattern=r"jm (.*)"))
 async def inline_id_handler(event: events.InlineQuery.Event):
-    o = await all_pro_s(Config, client1, client2, client3)
     builder = event.builder
-    if event.query.user_id not in o:
-        resultm = builder.article(
-            title="Not Allowded",
-            text=f"You Can't Use This Bot. \nDeploy Friday To Get Your Own Assistant, Repo Link [Here](https://github.com/StarkGang/FridayUserbot)",
-        )
-        await event.answer([resultm])
-        return
     testinput = event.pattern_match.group(1)
     starkisnub = urllib.parse.quote_plus(testinput)
     results = []
@@ -200,14 +208,6 @@ async def inline_id_handler(event: events.InlineQuery.Event):
 @tgbot.on(events.InlineQuery(pattern=r"google (.*)"))
 async def inline_id_handler(event: events.InlineQuery.Event):
     builder = event.builder
-    o = await all_pro_s(Config, client1, client2, client3)
-    if event.query.user_id not in o:
-        resultm = builder.article(
-            title="- Not Allowded -",
-            text=f"You Can't Use This Bot. \nDeploy Friday To Get Your Own Assistant, Repo Link [Here](https://github.com/StarkGang/FridayUserbot)",
-        )
-        await event.answer([resultm])
-        return
     results = []
     match = event.pattern_match.group(1)
     page = findall(r"page=\d+", match)
@@ -247,14 +247,6 @@ async def inline_id_handler(event: events.InlineQuery.Event):
 @tgbot.on(events.InlineQuery(pattern=r"ph (.*)"))
 async def inline_id_handler(event: events.InlineQuery.Event):
     builder = event.builder
-    o = await all_pro_s(Config, client1, client2, client3)
-    if event.query.user_id not in o:
-        resultm = builder.article(
-            title="- Not Allowded -",
-            text=f"You Can't Use This Bot. \nDeploy Friday To Get Your Own Assistant, Repo Link [Here](https://github.com/StarkGang/FridayUserbot)",
-        )
-        await event.answer([resultm])
-        return
     results = []
     input_str = event.pattern_match.group(1)
     api = PornhubApi()
@@ -285,14 +277,6 @@ async def inline_id_handler(event: events.InlineQuery.Event):
 @tgbot.on(events.InlineQuery(pattern=r"xkcd (.*)"))
 async def inline_id_handler(event: events.InlineQuery.Event):
     builder = event.builder
-    o = await all_pro_s(Config, client1, client2, client3)
-    if event.query.user_id not in o:
-        resultm = builder.article(
-            title="- Not Allowded -",
-            text=f"You Can't Use This Bot. \nDeploy Friday To Get Your Own Assistant, Repo Link [Here](https://github.com/StarkGang/FridayUserbot)",
-        )
-        await event.answer([resultm])
-        return
     results = []
     input_str = event.pattern_match.group(1)
     xkcd_id = None
@@ -344,15 +328,7 @@ Year: {}""".format(
         
 @tgbot.on(events.InlineQuery(pattern=r"deezer ?(.*)"))
 async def inline_id_handler(event):
-    builder = event.builder
-    o = await all_pro_s(Config, client1, client2, client3)
-    if event.query.user_id not in o:
-        resultm = builder.article(
-            title="- Not Allowded -",
-            text=f"You Can't Use This Bot. \nDeploy Friday To Get Your Own Assistant, Repo Link [Here](https://github.com/StarkGang/FridayUserbot)",
-        )
-        await event.answer([resultm])
-        return
+    builder = event.buildernt.answer([resultm])
     results = []
     input_str = event.pattern_match.group(1)
     link = f"https://api.deezer.com/search?q={input_str}&limit=7"
