@@ -1,14 +1,14 @@
 async def convert_to_image(event, borg):
     lmao = await event.get_reply_message()
     if not (
-            lmao.gif
-            or lmao.audio
-            or lmao.voice
-            or lmao.video
-            or lmao.video_note
-            or lmao.photo
-            or lmao.sticker
-            or lmao.media
+        lmao.gif
+        or lmao.audio
+        or lmao.voice
+        or lmao.video
+        or lmao.video_note
+        or lmao.photo
+        or lmao.sticker
+        or lmao.media
     ):
         await event.edit("`Format Not Supported.`")
         return
