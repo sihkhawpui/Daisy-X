@@ -1,24 +1,20 @@
-
-import random
-import requests
-import string
-import random
-import requests
-import string
-from bs4 import BeautifulSoup
-from hachoir.metadata import extractMetadata
-from hachoir.parser import createParser
-import hachoir
+import argparse
 import asyncio
 import os
-from pathlib import Path
-from selenium import webdriver
-import time
-import requests
+import random
 import shutil
-import os
-import argparse
+import string
+import time
+from pathlib import Path
+
+import hachoir
+import requests
 import wget
+from bs4 import BeautifulSoup
+from fake_useragent import UserAgent
+from hachoir.metadata import extractMetadata
+from hachoir.parser import createParser
+from selenium import webdriver
 from telethon.tl.types import DocumentAttributeAudio
 from youtube_dl import YoutubeDL
 from youtube_dl.utils import (
@@ -31,12 +27,9 @@ from youtube_dl.utils import (
     UnavailableVideoError,
     XAttrMetadataError,
 )
-import requests
-from bs4 import BeautifulSoup
-from fake_useragent import UserAgent
+
 headers = {"UserAgent": UserAgent().random}
 import asyncio
-from DaisyX.function.FastTelethon import download_file
 import json
 import math
 import os
@@ -44,30 +37,35 @@ import re
 import shlex
 import subprocess
 import time
-import eyed3
-from os.path import basename
-from typing import List, Optional, Tuple
 import webbrowser
-from bs4 import BeautifulSoup
+from os.path import basename
+from typing import List, Optional, Tuple, Union
+
+import eyed3
 import requests
-from bs4 import BeautifulSoup as bs
-import re
-from telethon.tl.types import InputMessagesFilterDocument
 import telethon
-from telethon import Button, custom, events, functions
+from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup as bs
 from pymediainfo import MediaInfo
-from telethon.tl.types import MessageMediaPhoto
-from typing import Union
+from telethon import Button, custom, events, functions
+from telethon.tl.types import InputMessagesFilterDocument, MessageMediaPhoto
+
+from DaisyX.function.FastTelethon import download_file
+
 SIZE_UNITS = ["B", "KB", "MB", "GB", "TB", "PB"]
 BASE_URL = "https://isubtitles.org"
-from DaisyX import TMP_DOWNLOAD_DIRECTORY
-import zipfile
 import os
+import zipfile
+
 import aiohttp
+
+from DaisyX import TMP_DOWNLOAD_DIRECTORY
 from DaisyX.function.FastTelethon import upload_file
+
 session = aiohttp.ClientSession()
 
 sedpath = TMP_DOWNLOAD_DIRECTORY
+
 
 async def convert_to_image(event, borg):
     lmao = await event.get_reply_message()
@@ -143,37 +141,39 @@ async def convert_to_image(event, borg):
     return lmao_final
 
 
-
-
 async def apk_dl(app_name, path, event):
-    await event.edit('`Searching, For Apk File. This May Take Time Depending On Your App Size`')
+    await event.edit(
+        "`Searching, For Apk File. This May Take Time Depending On Your App Size`"
+    )
     res = requests.get(f"https://m.apkpure.com/search?q={app_name}")
-    soup = BeautifulSoup(res.text, 'html.parser')
-    result = soup.select('.dd')
+    soup = BeautifulSoup(res.text, "html.parser")
+    result = soup.select(".dd")
     for link in result[:1]:
-        s_for_name = requests.get("https://m.apkpure.com" + link.get('href'))
-        sfn = BeautifulSoup(s_for_name.text, 'html.parser')
-        ttl = sfn.select_one('title').text
-        noneed = [' - APK Download']
+        s_for_name = requests.get("https://m.apkpure.com" + link.get("href"))
+        sfn = BeautifulSoup(s_for_name.text, "html.parser")
+        ttl = sfn.select_one("title").text
+        noneed = [" - APK Download"]
         for i in noneed:
-            name = ttl.replace(i, '')
-            res2 = requests.get("https://m.apkpure.com" + link.get('href') + "/download?from=details")
-            soup2 = BeautifulSoup(res2.text, 'html.parser')
-            result = soup2.select('.ga')
+            name = ttl.replace(i, "")
+            res2 = requests.get(
+                "https://m.apkpure.com" + link.get("href") + "/download?from=details"
+            )
+            soup2 = BeautifulSoup(res2.text, "html.parser")
+            result = soup2.select(".ga")
         for link in result:
-            dl_link = link.get('href')
+            dl_link = link.get("href")
             r = requests.get(dl_link)
-            with open(f"{path}/{name}@FridayOT.apk", 'wb') as f:
+            with open(f"{path}/{name}@FridayOT.apk", "wb") as f:
                 f.write(r.content)
-    await event.edit('`Apk, Downloaded. Let me Upload It here.`')
-    final_path = f'{path}/{name}@FridayOT.apk'
+    await event.edit("`Apk, Downloaded. Let me Upload It here.`")
+    final_path = f"{path}/{name}@FridayOT.apk"
     return final_path, name
 
 
-
-
 async def _ytdl(url, is_it, event, tgbot):
-    await event.edit("`Ok Downloading This Video / Audio - Please Wait.` \n**Powered By @FridayOT**")
+    await event.edit(
+        "`Ok Downloading This Video / Audio - Please Wait.` \n**Powered By @FridayOT**"
+    )
     if is_it:
         opts = {
             "format": "bestaudio",
@@ -225,16 +225,13 @@ async def _ytdl(url, is_it, event, tgbot):
         lol_m = await upload_file(
             file_name=f"{ytdl_data['title']}.mp3",
             client=tgbot,
-            file=open(file_stark, 'rb'),
+            file=open(file_stark, "rb"),
             progress_callback=lambda d, t: asyncio.get_event_loop().create_task(
-                progress(
-                    d, t, event, c_time, "Uploading Youtube Audio..", file_stark
-                )
+                progress(d, t, event, c_time, "Uploading Youtube Audio..", file_stark)
             ),
         )
         await event.edit(
-            file=lol_m,
-            text=f"{ytdl_data['title']} \n**Uploaded Using @FRidayOt**"
+            file=lol_m, text=f"{ytdl_data['title']} \n**Uploaded Using @FRidayOt**"
         )
         os.remove(file_stark)
     elif video:
@@ -242,31 +239,30 @@ async def _ytdl(url, is_it, event, tgbot):
         lol_m = await upload_file(
             file_name=f"{ytdl_data['title']}.mp4",
             client=tgbot,
-            file=open(file_stark, 'rb'),
+            file=open(file_stark, "rb"),
             progress_callback=lambda d, t: asyncio.get_event_loop().create_task(
-                progress(
-                    d, t, event, c_time, "Uploading Youtube Video..", file_stark
-                )
+                progress(d, t, event, c_time, "Uploading Youtube Video..", file_stark)
             ),
         )
         await event.edit(
-            file=lol_m,
-            text=f"{ytdl_data['title']} \n**Uploaded Using @FRidayOt**"
+            file=lol_m, text=f"{ytdl_data['title']} \n**Uploaded Using @FRidayOt**"
         )
         os.remove(file_stark)
 
 
 async def _deezer_dl(word, event, tgbot):
-    await event.edit("`Ok Downloading This Audio - Please Wait.` \n**Powered By @FridayOT**")
+    await event.edit(
+        "`Ok Downloading This Audio - Please Wait.` \n**Powered By @FridayOT**"
+    )
     urlp = f"https://starkapi.herokuapp.com/deezer/{word}"
     datto = requests.get(url=urlp).json()
     mus = datto.get("url")
     mello = datto.get("artist")
-    #thums = urlhp["album"]["cover_medium"]
-    sname = f'''{datto.get("title")}.mp3'''
+    # thums = urlhp["album"]["cover_medium"]
+    sname = f"""{datto.get("title")}.mp3"""
     doc = requests.get(mus)
-    with open(sname, 'wb') as f:
-      f.write(doc.content)
+    with open(sname, "wb") as f:
+        f.write(doc.content)
     car = f"""
 **Song Name :** {datto.get("title")}
 **Duration :** {datto.get('duration')} Seconds
@@ -276,21 +272,13 @@ Please Share and support @DaisyXBot"""
     await event.edit("Song Downloaded.  Waiting To Upload. 🥳🤗")
     c_time = time.time()
     uploaded_file = await upload_file(
-        	file_name=sname,
-            client=tgbot,
-            file=open(sname, 'rb'),
-            progress_callback=lambda d, t: asyncio.get_event_loop().create_task(
-                progress(
-                    d, t, event, c_time, "Uploading..", sname
-                )
-            ),
-        )
-    
-    await event.edit(
-            file=uploaded_file,
-            text=car
+        file_name=sname,
+        client=tgbot,
+        file=open(sname, "rb"),
+        progress_callback=lambda d, t: asyncio.get_event_loop().create_task(
+            progress(d, t, event, c_time, "Uploading..", sname)
+        ),
     )
+
+    await event.edit(file=uploaded_file, text=car)
     os.remove(sname)
-
-
-
