@@ -4,7 +4,6 @@ from search_engine_parser import GoogleSearch
 from youtube_search import YoutubeSearch
 
 from DaisyX import pbot as app
-from DaisyX.modules import cust_filters as cust_filter
 
 __mod_name__ = "Search"
 __help__ = """/ud - Search For Something In Urban Dictionary
@@ -15,7 +14,7 @@ __help__ = """/ud - Search For Something In Urban Dictionary
 # google
 
 
-@app.on_message(cust_filter.command(commands=("google")) & ~filters.edited)
+@app.on_message(filters.command(commands=("google")) & ~filters.edited)
 async def google(_, message: Message):
     try:
         if len(message.command) < 2:
@@ -41,7 +40,7 @@ async def google(_, message: Message):
 # StackOverflow [This is also a google search with some added args]
 
 
-@app.on_message(cust_filter.command(commands=("so")) & ~filters.edited)
+@app.on_message(filters.command(commands=("so")) & ~filters.edited)
 async def stack(_, message: Message):
     try:
         if len(message.command) < 2:
@@ -68,7 +67,7 @@ async def stack(_, message: Message):
 # Github [This is also a google search with some added args]
 
 
-@app.on_message(cust_filter.command(commands=("gh")) & ~filters.edited)
+@app.on_message(filters.command(commands=("gh")) & ~filters.edited)
 async def github(_, message: Message):
     try:
         if len(message.command) < 2:
@@ -95,7 +94,7 @@ async def github(_, message: Message):
 # YouTube
 
 
-@app.on_message(cust_filter.command(commands=("yt")) & ~filters.edited)
+@app.on_message(filters.command(commands=("yt")) & ~filters.edited)
 async def ytsearch(_, message: Message):
     try:
         if len(message.command) < 2:
