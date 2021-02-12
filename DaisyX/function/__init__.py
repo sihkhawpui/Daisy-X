@@ -32,9 +32,8 @@ from DaisyX import ubot as borg
 
 headers = {"UserAgent": UserAgent().random}
 import asyncio
-import json 
+import json
 import math
-
 import os
 import re
 import shlex
