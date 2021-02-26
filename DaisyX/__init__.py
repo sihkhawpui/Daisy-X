@@ -190,6 +190,8 @@ DEV_USERS = list(DEV_USERS)
 WOLVES = list(WOLVES)
 DEMONS = list(DEMONS)
 TIGERS = list(TIGERS)
+# I Know this is not a good way. But this is my style
+TMP_DOWNLOAD_DIRECTORY = './'
 
 # Load at end to ensure all prev variables have been set
 from DaisyX.modules.helper_funcs.handlers import (
