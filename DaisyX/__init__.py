@@ -212,6 +212,7 @@ pbot = Client("DaisyX", api_id=API_ID, api_hash=API_HASH, bot_token=TOKEN)
 dispatcher = updater.dispatcher
 tbot = telethn
 
+TMP_DOWNLOAD_DIRECTORY = TEMP_DOWNLOAD_DIRECTORY
 DRAGONS = list(DRAGONS) + list(DEV_USERS)
 DEV_USERS = list(DEV_USERS)
 WOLVES = list(WOLVES)
