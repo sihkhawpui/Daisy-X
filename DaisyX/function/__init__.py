@@ -28,7 +28,7 @@ from youtube_dl.utils import (
     XAttrMetadataError,
 )
 
-from DaisyX import ubot as borg
+from DaisyX import telethn as borg
 
 headers = {"UserAgent": UserAgent().random}
 import asyncio
