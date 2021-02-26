@@ -54,3 +54,4 @@ google-api-python-client
 pornhub_api
 youtube_search
 search_engine_parser
+wget
