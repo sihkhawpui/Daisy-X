@@ -57,3 +57,4 @@ search_engine_parser
 wget
 fake_useragent
 selenium
+pymediainfo
