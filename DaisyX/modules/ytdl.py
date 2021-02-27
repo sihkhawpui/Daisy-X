@@ -70,27 +70,27 @@ async def download_video(v_url):
         await lmao.edit(f"`{str(DE)}`")
         return
     except ContentTooShortError:
-        await lmao.edit("`The download content was too short.`")
+        await lmao.edit("❗️`The download content was too short.`")
         return
     except GeoRestrictedError:
         await lmao.edit(
-            "`Video is not available from your geographic location due to geographic restrictions imposed by a website.`"
+            "❗️ `Video is not available from your geographic location due to geographic restrictions imposed by a website.`"
         )
         return
     except MaxDownloadsReached:
-        await lmao.edit("`Max-downloads limit has been reached.`")
+        await lmao.edit("❗️ `Max-downloads limit has been reached.`")
         return
     except PostProcessingError:
-        await lmao.edit("`There was an error during post processing.`")
+        await lmao.edit("❗️ `There was an error during post processing.`")
         return
     except UnavailableVideoError:
-        await lmao.edit("`Media is not available in the requested format.`")
+        await lmao.edit("❗️ `Media is not available in the requested format.`")
         return
     except XAttrMetadataError as XAME:
         await lmao.edit(f"`{XAME.code}: {XAME.msg}\n{XAME.reason}`")
         return
     except ExtractorError:
-        await lmao.edit("`There was an error during info extraction.`")
+        await lmao.edit("❗️ `There was an error during info extraction.`")
         return
     except Exception as e:
         await lmao.edit(f"{str(type(e)): {str(e)}}")
