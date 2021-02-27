@@ -2,7 +2,6 @@ import os
 import time
 
 from telethon.tl.types import DocumentAttributeAudio
-from fridaybot.function.FastTelethon import upload_file
 from youtube_dl import YoutubeDL
 from youtube_dl.utils import (
     ContentTooShortError,
