@@ -63,7 +63,7 @@ from DaisyX.modules.helper_funcs.misc import paginate_modules
 from DaisyX.modules.helper_funcs.readable_time import get_readable_time
 
 PM_START_TEXT = """
-Hello there, I'm [Senhri](https://telegra.ph/file/b801207a176b5c76f6f27.jpg)
+Hello there, I'm *Senhri*
 
 I am an Mizo InFoTel Group Managing Bot and I will help in managing your group
 
@@ -86,7 +86,7 @@ buttons = [
 
 
 HELP_STRINGS = f"""
-*Helpful Commands :* [🤖](https://telegra.ph/file/b801207a176b5c76f6f27.jpg)
+*Helpful Commands :*
 ✪ /start: Starts me! You've probably already used this.
 ✪ /help: Click this, I'll let you know about myself!
 ✪ /donate: You can support my creater using this command.
@@ -538,7 +538,7 @@ def get_help(update, context):
                     [
                         InlineKeyboardButton(
                             text="Support Chat",
-                            url="https://t.me/{}".format(SUPPORT_CHAT),
+                            url="https://t.me/MizoInFoTel1",
                         )
                     ],
                 ]
