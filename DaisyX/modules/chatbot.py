@@ -151,8 +151,8 @@ Chatbot utilizes the CoffeeHouse API and allows Senku to talk and provides a mor
  ✪ `/addchat`*:* Enables Chatbot mode in the chat.
  ✪ `/rmchat`*:* Disables Chatbot mode in the chat.
 
-Reports bugs at @{SUPPORT_CHAT}
-[Powered by CoffeeHouse](https://coffeehouse.intellivoid.net) from @Intellivoid
+Reports bugs at @MizoInFoTel1
+[Powered by Zaute Km](https://mizoinfotel.blogspot.com) from @MizoInFoTel14
 """
 
 ADD_CHAT_HANDLER = CommandHandler("addchat", add_chat)
