@@ -63,23 +63,16 @@ from DaisyX.modules.helper_funcs.misc import paginate_modules
 from DaisyX.modules.helper_funcs.readable_time import get_readable_time
 
 PM_START_TEXT = """
-Hello there, I'm *Senhri*
+Hi, My Name is *Dingdi*
+I Group ah pui tur chein ka inpeih reng e. Group Manager atana min hman dawn chuan @MizoInFoTel14 News Channel hi lo join ang che.
 
-I am an Mizo InFoTel Group Managing Bot and I will help in managing your group
-
-✪ Make sure you read *INFO* Section Below ✪ 
+✪ *Min Command theihna i hriat duh chuan /help lo thawn rawh.* ✪ 
 """
 
 buttons = [
     [
-        InlineKeyboardButton(text="🚀 INFO 🚀", callback_data="aboutmanu_"),
-    ],
-    [
-        InlineKeyboardButton(text="❓ Help & Commands ❓", callback_data="help_back"),
-    ],
-    [
         InlineKeyboardButton(
-            text="💫 Add me to your group 💫", url="t.me/zosenhribot?startgroup=true"
+            text="💫 Add me to your group 💫", url="t.me/DingdiBot?startgroup=true"
         ),
     ],
 ]
@@ -93,6 +86,8 @@ HELP_STRINGS = f"""
 ✪ /settings: 
    ◔ in PM: will send you your settings for all supported modules.
    ◔ in a Group: will redirect you to pm, with all that chat's settings.
+   {}
+   Enge maw buaina leh harsatna i neih chuan @MizoInFoTel1 hi lo join ang che.
 """.format(
     dispatcher.bot.first_name,
     "" if not ALLOW_EXCL else "\nAll commands can either be used with / or !.\n",
