@@ -186,7 +186,7 @@ def new_member(update: Update, context: CallbackContext):
             # Give the owner a special welcome
             if new_mem.id == OWNER_ID:
                 update.effective_message.reply_text(
-                    "Oh my! Hey Owner, let's get this moving (｡•̀ᴗ-)✧.",
+                    "Awi hah! Min siamtu hi alo joined ve. Hlim takin i awm tlang ang u.",
                     reply_to_message_id=reply,
                 )
                 welcome_log = (
@@ -199,7 +199,7 @@ def new_member(update: Update, context: CallbackContext):
             # Welcome Devs
             elif new_mem.id in DEV_USERS:
                 update.effective_message.reply_text(
-                    "Whoa! A member of the Anteiku Union just joined!◉‿◉",
+                    "Whoa! Mizo InFoTel chhuanvawr alo lut ve e",
                     reply_to_message_id=reply,
                 )
                 continue
@@ -513,7 +513,7 @@ def left_member(update: Update, context: CallbackContext):
             # Give the owner a special goodbye
             if left_mem.id == OWNER_ID:
                 update.effective_message.reply_text(
-                    "Oi! Chrome! He left..ʕ´• ᴥ•̥`ʔ", reply_to_message_id=reply
+                    "Awi hah! @ZauteKm a left ava pawi tak em!, reply_to_message_id=reply
                 )
                 return
 
